@@ -1,0 +1,19 @@
+{
+  "name": "genealogic-tree-back",
+  "version": "0.0.1",
+  "private": true,
+  "author": "samuelbap",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samuelbap/genealogic-tree-back/issues"
+  },
+  "homepage": "https://github.com/samuelbap/genealogic-tree-back#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelbap/genealogic-tree-back.git"
+  }
+}
