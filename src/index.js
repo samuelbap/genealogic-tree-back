@@ -1,15 +1,38 @@
-import express from "express";
-import dotenv from "dotenv";
+import express from 'express';
+import cors from 'cors';
 
-dotenv.config();
+import routes from './routes/routes.js';
+import { sequelize } from './models/index.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
+app.use('/api', routes);
+
+// Error handling
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
-app.listen(port, () => {
-  console.log(`App listen on port: ${port}`);
-});
+// Start server
+const PORT = process.env.PORT || 3001;
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection has been established successfully.');
+    await sequelize.sync();
+    console.log('All models were synchronized successfully.');
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();
