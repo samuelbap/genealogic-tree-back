@@ -15,7 +15,7 @@ router.put('/documents/:id', documentController.updateDocument);
 router.delete('/documents/:id', documentController.deleteDocument);
 
 // DocumentLocation routes
-router.get('/document-locations', documentLocationController.getAllDocumentLocations);
+router.get('/document-locations',  documentLocationController.getAllDocumentLocations);
 router.post('/document-locations', documentLocationController.createDocumentLocation);
 router.get('/document-locations/:id', documentLocationController.getDocumentLocationById);
 router.put('/document-locations/:id', documentLocationController.updateDocumentLocation);

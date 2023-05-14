@@ -5,6 +5,8 @@ import { person } from '../models/person.js';
 
 export const documentController = {
   getAllDocuments: async (req, res) => {
+    console.log(res);
+
     try {
       const documents = await document.findAll({
         include: [
@@ -18,7 +20,16 @@ export const documentController = {
           }
         ]
       });
-      res.status(200).json(documents);
+      if(documents.length){
+        res.status(200).json({
+          data: documents,
+        });
+      }else{
+        res.status(404).json({
+          message: 'not found documents',
+        });
+      }
+
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -34,6 +45,7 @@ export const documentController = {
   },
 
   getDocumentById: async (req, res) => {
+
     try {
       const document = await document.findByPk(req.params.id, {
         include: [
