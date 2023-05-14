@@ -4,7 +4,9 @@ export const partnershipController = {
   getAllPartnerships: async (req, res) => {
     try {
       const partnerships = await partnership.findAll();
-      res.json(partnerships);
+      res.json({
+        data: partnerships
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
@@ -15,7 +17,9 @@ export const partnershipController = {
     try {
       const partnership = await partnership.findByPk(id);
       if (partnership) {
-        res.json(partnership);
+        res.json({
+          data:partnership
+        });
       } else {
         res.status(404).json({ message: 'Partnership not found' });
       }
