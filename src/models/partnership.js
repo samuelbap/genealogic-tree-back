@@ -1,8 +1,8 @@
-import sequelize from '../config/database.js';
-import person from './person.js';
-import document from './document.js';
+import {sequelize} from '../config/database.js';
+import {person} from './person.js';
+import {document} from './document.js';
 
-const partnership = sequelize.define('partnership', {
+export const partnership = sequelize.define('partnership', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -25,4 +25,3 @@ partnership.belongsTo(person, {
   as: 'partner2'
 });
 
-module.exports = partnership;

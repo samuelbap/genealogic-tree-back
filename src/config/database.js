@@ -12,3 +12,13 @@ export const sequelize = new Sequelize(
     dialect: process.env.DB_DIALECT
   }
 );
+
+
+/*
+*   const sequelize = new Sequelize('nombre_de_la_base_de_datos', 'usuario', 'contraseña', {
+     host: 'localhost',
+     port: 5432,
+     dialect: 'postgres',
+   });
+   ```
+*/

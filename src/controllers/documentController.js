@@ -1,5 +1,7 @@
 // backend/src/controllers/documentController.js
-import { document, documentLocation, person } from '../models/index.js';
+import { document } from '../models/document.js';
+import { documentLocation } from '../models/documentLocation.js';
+import { person } from '../models/person.js';
 
 export const documentController = {
   getAllDocuments: async (req, res) => {

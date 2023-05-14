@@ -1,8 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 
-import routes from './routes/routes.js';
-import { sequelize } from './models/index.js';
+import {routes} from './routes/routes.js';
+
+import { sequelize } from './config/database.js';
+
+
 
 const app = express();
 
@@ -21,7 +24,7 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5432;
 (async () => {
   try {
     await sequelize.authenticate();

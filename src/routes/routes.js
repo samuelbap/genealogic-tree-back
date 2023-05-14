@@ -1,10 +1,12 @@
 import express from 'express';
 
-import { documentController } from '../controllers/documentController.js';
-import documentLocationController from '../controllers/documentLocationController.js';
-import personController from '../controllers/personController.js';
 
-const router = express.Router();
+import { documentController } from '../controllers/documentController.js';
+import {documentLocationController} from '../controllers/documentLocationController.js';
+import {personController} from '../controllers/personController.js';
+import { partnershipController } from '../controllers/partnershipController.js';
+
+export const routes = express.Router();
 
 // Document routes
 router.get('/documents', documentController.getAllDocuments);
@@ -36,4 +38,4 @@ router.delete('/persons/:id', personController.deletePerson);
 // DocumentChildren routes
 // Add your documentChildren routes here
 
-module.exports = router;
+

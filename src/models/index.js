@@ -10,9 +10,9 @@ import { person } from './person.js';
 // const DocumentChildrenModel = require('./documentChildren');
 
 export const models = {
-  Document: document,
-  DocumentLocation: documentLocation,
-  Person: person
+  document: document,
+  documentLocation: documentLocation,
+  person: person
   // DocumentProtagonist: DocumentProtagonistModel.init(sequelize, Model),
   // DocumentPartnership: DocumentPartnershipModel.init(sequelize, Model),
   // DocumentChildren: DocumentChildrenModel.init(sequelize, Model),

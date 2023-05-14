@@ -1,9 +1,9 @@
-import sequelize from '../config/database.js';
-import Person from './person.js';
-import Document from './document.js';
-import partnership from './partnership.js';
+import {sequelize} from '../config/database.js';
+import {Person} from './person.js';
+import {Document} from './document.js';
+import {partnership} from './partnership.js';
 
-const children = sequelize.define('children', {
+export const children = sequelize.define('children', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -26,4 +26,4 @@ children.belongsTo(partnership, {
   as: 'partnership'
 });
 
-module.exports = children;
+
