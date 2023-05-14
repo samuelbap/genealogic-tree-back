@@ -1,5 +1,4 @@
-// backend/src/models/person.js
-
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
 export const person = sequelize.define('person', {

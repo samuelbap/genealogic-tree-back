@@ -1,3 +1,4 @@
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 import { documentLocation } from './documentLocation.js';
 import { person } from './person.js';
@@ -30,12 +31,12 @@ export const document = sequelize.define('document', {
   }
 });
 
-Document.belongsTo(documentLocation, {
+document.belongsTo(documentLocation, {
   foreignKey: 'locationId',
   as: 'location'
 });
 
-Document.belongsTo(person, {
+document.belongsTo(person, {
   foreignKey: 'rootPersonId',
   as: 'rootPerson'
 });

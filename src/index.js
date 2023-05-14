@@ -1,11 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 
-import {routes} from './routes/routes.js';
+import { router } from './routes/routes.js';
 
 import { sequelize } from './config/database.js';
-
-
 
 const app = express();
 
@@ -15,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.use('/api', routes);
+app.use('/api', router);
 
 // Error handling
 app.use((err, req, res, next) => {

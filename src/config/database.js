@@ -13,7 +13,6 @@ export const sequelize = new Sequelize(
   }
 );
 
-
 /*
 *   const sequelize = new Sequelize('nombre_de_la_base_de_datos', 'usuario', 'contraseña', {
      host: 'localhost',

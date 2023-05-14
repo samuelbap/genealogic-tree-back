@@ -1,6 +1,6 @@
-import {sequelize} from '../config/database.js';
-import {person} from './person.js';
-import {document} from './document.js';
+import { sequelize } from '../config/database.js';
+import { person } from './person.js';
+import { document } from './document.js';
 
 export const DocumentProtagonist = sequelize.define('documentProtagonist', {
   id: {
@@ -19,5 +19,3 @@ DocumentProtagonist.belongsTo(document, {
   foreignKey: 'idDocument',
   as: 'document'
 });
-
-
