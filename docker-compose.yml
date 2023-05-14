@@ -9,18 +9,21 @@ services:
     ports:
       - 3001:3001
     volumes:
-      - ./app
-      - /app/node_modules
-    # command: npm install express cors body-parser
+      - .:/app
+      - ./node_modules:/app/node_modules
+ #  command: npm install pg
 
 
   db:
     image: postgres:13
     container_name: genealogic-tree-db
-    environment:
+    environment: 
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=mydb
+       #En realidad estos datos de acceso a la bbdd deberian estar en el archivo .env 
+       #Por lo que seria necesario configurar un export del .yml
+
     ports:
       - 5432:5432
     volumes:

@@ -10,7 +10,7 @@
   "homepage": "https://github.com/samuelbap/genealogic-tree-back#readme",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "nodemon src/server.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
