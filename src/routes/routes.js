@@ -15,7 +15,7 @@ router.put('/documents/:id', documentController.updateDocument);
 router.delete('/documents/:id', documentController.deleteDocument);
 
 // DocumentLocation routes
-router.get('/document-locations',  documentLocationController.getAllDocumentLocations);
+router.get('/document-locations', documentLocationController.getAllDocumentLocations);
 router.post('/document-locations', documentLocationController.createDocumentLocation);
 router.get('/document-locations/:id', documentLocationController.getDocumentLocationById);
 router.put('/document-locations/:id', documentLocationController.updateDocumentLocation);
@@ -28,11 +28,12 @@ router.get('/persons/:id', personController.getPersonById);
 router.put('/persons/:id', personController.updatePerson);
 router.delete('/persons/:id', personController.deletePerson);
 
-// DocumentProtagonist routes
-// Add your documentProtagonist routes here
-
-// DocumentPartnership routes
+// protagonist routes
 // Add your documentPartnership routes here
 
-// DocumentChildren routes
-// Add your documentChildren routes here
+// partnership routes
+router.get('/partnership', partnershipController.getAllPartnerships);
+router.get('/partnership/:id', partnershipController.getPartnershipById);
+
+// children routes
+// Add your children routes here
