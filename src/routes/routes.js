@@ -19,7 +19,7 @@ router.put('/documents/:id', documentController.updateDocument);
 router.delete('/documents/:id', documentController.deleteDocument);
 
 // DocumentLocation routes
-router.get('/document-locations',  documentLocationController.getAllDocumentLocations);
+router.get('/document-locations', documentLocationController.getAllDocumentLocations);
 router.post('/document-locations', documentLocationController.createDocumentLocation);
 router.get('/document-locations/:id', documentLocationController.getDocumentLocationById);
 router.put('/document-locations/:id', documentLocationController.updateDocumentLocation);
@@ -45,10 +45,10 @@ router.post("/partnerships", partnershipController.createPartnership);
 router.put("/partnerships/:id", partnershipController.updatePartnership);
 router.delete("/partnerships/:id", partnershipController.deletePartnership);
 
-
 // Children routes
 router.get("/children", childrenController.getAllChildren);
 router.post("/children", childrenController.createChildren);
 router.put("/children/:id", childrenController.updateChildren);
 router.delete("/children/:id", childrenController.deleteChildren);
+
 
