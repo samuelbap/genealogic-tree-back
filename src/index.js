@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
- 
+
 import { router } from './routes/routes.js';
 
 import { sequelize } from './config/database.js';
@@ -16,36 +16,49 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Status
-app.get('/health', ( _, res ) => {
+app.get('/health', (_, res) => {
   res.status(200).json({
-    env:process.env.NODE_ENV,
+    env: process.env.NODE_ENV,
     message: 'Is running'
-  })
+  });
 });
 
-  app.get('/samuel', (req, res, next) =>{
+app.get(
+  '/samuel',
+  (req, res, next) => {
     console.log(req);
-    console.log('------------------------------------------------------------------------------------------------------------')
-    console.log('------------------------------------------------------------------------------------------------------------')
-    console.log('------------------------------------------------------------------------------------------------------------')
-    console.log('------------------------------------------------------------------------------------------------------------')
-      req.ruben = {};
-      next();
-  },(req, res, next) =>{
-    const params = req.params; 
-    if(params){
-      req.ruben.params = 'He encontrado parametros'
+    console.log(
+      '------------------------------------------------------------------------------------------------------------'
+    );
+    console.log(
+      '------------------------------------------------------------------------------------------------------------'
+    );
+    console.log(
+      '------------------------------------------------------------------------------------------------------------'
+    );
+    console.log(
+      '------------------------------------------------------------------------------------------------------------'
+    );
+    req.ruben = {};
+    next();
+  },
+  (req, res, next) => {
+    const params = req.params;
+    if (params) {
+      req.ruben.params = 'He encontrado parametros';
     }
     next();
-  }, (req, res, next) =>{
-    req.ruben.saludo = 'Hola que tal estas?'
+  },
+  (req, res, next) => {
+    req.ruben.saludo = 'Hola que tal estas?';
     next();
-  },(req, res, next) =>{
-    req.ruben.edad = 32
+  },
+  (req, res, next) => {
+    req.ruben.edad = 32;
     console.log(req);
-    res.json( req.ruben)
+    res.json(req.ruben);
   }
-  );
+);
 
 // Routes
 app.use('/api', router);
