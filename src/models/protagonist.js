@@ -1,4 +1,6 @@
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
+
 import { person } from './person.js';
 import { document } from './document.js';
 

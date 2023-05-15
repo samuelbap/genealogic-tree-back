@@ -2,8 +2,12 @@ import express from 'express';
 
 import { documentController } from '../controllers/documentController.js';
 import { documentLocationController } from '../controllers/documentLocationController.js';
+
 import { personController } from '../controllers/personController.js';
+
 import { partnershipController } from '../controllers/partnershipController.js';
+import { protagonistController } from '../controllers/protagonistController.js';
+import { childrenController } from '../controllers/childrenController.js';
 
 export const router = express.Router();
 
@@ -28,12 +32,23 @@ router.get('/persons/:id', personController.getPersonById);
 router.put('/persons/:id', personController.updatePerson);
 router.delete('/persons/:id', personController.deletePerson);
 
-// protagonist routes
-// Add your documentPartnership routes here
+// DocumentProtagonist routes
+router.get("/protagonists", protagonistController.getAllProtagonists);
+router.post("/protagonists", protagonistController.createProtagonist);
+router.put("/protagonists/:id", protagonistController.updateProtagonist);
+router.delete("/protagonists/:id", protagonistController.deleteProtagonist);
 
-// partnership routes
-router.get('/partnership', partnershipController.getAllPartnerships);
-router.get('/partnership/:id', partnershipController.getPartnershipById);
+// Partnership routes
+router.get("/partnerships", partnershipController.getAllPartnerships);
+router.get("/partnerships/:id", partnershipController.getPartnershipById);
+router.post("/partnerships", partnershipController.createPartnership);
+router.put("/partnerships/:id", partnershipController.updatePartnership);
+router.delete("/partnerships/:id", partnershipController.deletePartnership);
 
-// children routes
-// Add your children routes here
+// Children routes
+router.get("/children", childrenController.getAllChildren);
+router.post("/children", childrenController.createChildren);
+router.put("/children/:id", childrenController.updateChildren);
+router.delete("/children/:id", childrenController.deleteChildren);
+
+
