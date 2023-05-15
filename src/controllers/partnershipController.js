@@ -12,20 +12,47 @@ export const partnershipController = {
     }
   },
 
-  getPartnershipById: async (req, res) => {
-    const { id } = req.params;
+  // Create a Partnership
+  async createPartnership(req, res) {
     try {
-      const partnership = await partnership.findByPk(id);
-      if (partnership) {
-        res.json({
-          data:partnership
-        });
-      } else {
-        res.status(404).json({ message: 'Partnership not found' });
-      }
-    } catch (error) {
-      res.status(500).json({ error: error.message });
+      const partnership = await partnership.create(req.body);
+      res.status(201).json(partnership);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  // Get DocumentPartnership by id
+  getPartnershipById: async (req, res) => {
+    try {
+      const partnership = await partnership.findByPk(req.params.id);
+      res.status(200).json(partnership);
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  // Update a DocumentPartnership
+  updatePartnership: async (req, res) => {
+    try {
+      await partnership.update(req.body, {
+        where: { id: req.params.id }
+      });
+      res.status(200).json({ message: 'Partnership updated successfully.' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  },
+
+  // Delete a DocumentPartnership
+  deletePartnership: async (req, res) => {
+    try {
+      await partnership.destroy({
+        where: { id: req.params.id }
+      });
+      res.status(200).json({ message: 'partnership deleted successfully.' });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
     }
   }
 };
-

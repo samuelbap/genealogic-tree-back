@@ -1,8 +1,10 @@
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
+
 import { person } from './person.js';
 import { document } from './document.js';
 
-export const DocumentProtagonist = sequelize.define('documentProtagonist', {
+export const protagonist = sequelize.define('protagonist', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -10,12 +12,12 @@ export const DocumentProtagonist = sequelize.define('documentProtagonist', {
   }
 });
 
-DocumentProtagonist.belongsTo(person, {
+protagonist.belongsTo(person, {
   foreignKey: 'idPerson',
   as: 'person'
 });
 
-DocumentProtagonist.belongsTo(document, {
+protagonist.belongsTo(document, {
   foreignKey: 'idDocument',
   as: 'document'
 });

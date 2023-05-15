@@ -1,6 +1,9 @@
+
+import { DataTypes } from 'sequelize';
 import {sequelize} from '../config/database.js';
-import {Person} from './person.js';
-import {Document} from './document.js';
+
+import {person} from './person.js';
+import {document} from './document.js';
 import {partnership} from './partnership.js';
 
 export const children = sequelize.define('children', {
@@ -11,12 +14,12 @@ export const children = sequelize.define('children', {
   }
 });
 
-children.belongsTo(Person, {
+children.belongsTo(person, {
   foreignKey: 'idChildren',
   as: 'child'
 });
 
-children.belongsTo(Document, {
+children.belongsTo(document, {
   foreignKey: 'idDocument',
   as: 'document'
 });
