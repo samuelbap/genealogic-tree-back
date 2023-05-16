@@ -34,5 +34,13 @@ export const documentLocation = sequelize.define('documentLocation', {
   idBook: {
     type: DataTypes.STRING(255),
     allowNull: false
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('NOW()')
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('NOW()')
   }
 });
