@@ -29,6 +29,14 @@ export const document = sequelize.define('document', {
   imageUrl: {
     type: DataTypes.STRING(300),
     allowNull: false
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('NOW()')
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('NOW()')
   }
 });
 
