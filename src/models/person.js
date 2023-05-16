@@ -11,12 +11,20 @@ export const person = sequelize.define('person', {
     type: DataTypes.STRING(255),
     allowNull: true
   },
-  personName: {
+  name: {
     type: DataTypes.STRING(255),
     allowNull: true
   },
   lastName: {
     type: DataTypes.STRING(255),
     allowNull: true
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('NOW()')
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    defaultValue: sequelize.literal('NOW()')
   }
 });

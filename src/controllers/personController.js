@@ -1,9 +1,8 @@
 // backend/src/controllers/personController.js
 
-import  {person}  from "../models/person.js";
+import { person } from '../models/person.js';
 
-
-export const personController = { 
+export const personController = {
   getAllPersons: async (req, res) => {
     try {
       const persons = await person.findAll();

@@ -70,13 +70,20 @@ app.use((err, req, res, next) => {
 });
 
 // Start idex
+
+/*
+ *   User.sync() - This creates the table if it doesn't exist (and does nothing if it already exists)
+ *    User.sync({ force: true }) - This creates the table, dropping it first if it already existed
+ *    User.sync({ alter: true }) - This checks what is the current state of the table in the database
+ */
+
 const PORT = process.env.PORT || 3001;
 (async () => {
   try {
     await sequelize.authenticate();
     console.log('Database connection has been established successfully.');
 
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     console.log('All models were synchronized successfully.');
 
     app.listen(PORT, () => {

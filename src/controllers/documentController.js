@@ -20,22 +20,22 @@ export const documentController = {
           }
         ]
       });
-      if(documents.length){
+      if (documents.length) {
         res.status(200).json({
-          data: documents,
+          data: documents
         });
-      }else{
+      } else {
         res.status(404).json({
-          message: 'not found documents',
+          message: 'not found documents'
         });
       }
-
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   },
 
   createDocument: async (req, res) => {
+    console.log(req.body);
     try {
       const newDocument = await document.create(req.body);
       res.status(201).json(newDocument);
@@ -45,7 +45,6 @@ export const documentController = {
   },
 
   getDocumentById: async (req, res) => {
-
     try {
       const document = await document.findByPk(req.params.id, {
         include: [
