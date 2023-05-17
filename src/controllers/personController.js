@@ -3,10 +3,10 @@
 import { person } from '../models/person.js';
 
 export const personController = {
-  getAllPersons: async (req, res) => {
+  getAllpeople: async (req, res) => {
     try {
-      const persons = await person.findAll();
-      res.status(200).json(persons);
+      const people = await person.findAll();
+      res.status(200).json(people);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

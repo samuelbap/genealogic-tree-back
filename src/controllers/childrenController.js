@@ -19,7 +19,7 @@ export const childrenController = {
     }
   },
   // Create Children
-  createChildren: async (req, res) => {
+  createChild: async (req, res) => {
     try {
       const children = await children.create(req.body);
       res.status(201).json(children);
@@ -29,7 +29,7 @@ export const childrenController = {
   },
 
   // Update a children
-  async updateChildren(req, res) {
+  async updateChild(req, res) {
     try {
       await children.update(req.body, {
         where: { id: req.params.id }
@@ -41,7 +41,7 @@ export const childrenController = {
   },
 
   // Delete a Children
-  async deleteChildren(req, res) {
+  async deleteChild(req, res) {
     try {
       await children.destroy({
         where: { id: req.params.id }
