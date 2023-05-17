@@ -3,26 +3,28 @@ version: '3.8'
 services:
   genealogic-tree-back:
     build: ./
-    container_name: genealogic-tree-back
+    image: genealogic-tree-back
+    # container_name: genealogic-tree-back
     environment:
       - NODE_ENV=development
     ports:
       - 3001:3001
-    volumes:
-      - .:/app
 
-
+  genealogic-tree-load:
+    build: ./
+    image: genealogic-tree-back
+    # container_name: genealogic-tree-load
+    environment:
+      - NODE_ENV=development
+    command: npm run load
 
   db:
     image: postgres:13
-    container_name: genealogic-tree-db
+    # container_name: genealogic-tree-db
     environment: 
       - POSTGRES_USER=myuser
       - POSTGRES_PASSWORD=mypassword
       - POSTGRES_DB=mydb
-       #En realidad estos datos de acceso a la bbdd deberian estar en el archivo .env 
-       #Por lo que seria necesario configurar un export del .yml
-
     ports:
       - 5432:5432
     volumes:
@@ -30,7 +32,3 @@ services:
 
 volumes:
   db-data:
-
-    #  - POSTGRES_USER=gtree
-     # - POSTGRES_PASSWORD=123PollitoIngles
-      #- POSTGRES_DB=genealogicTree
