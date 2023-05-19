@@ -12,8 +12,8 @@ export const protagonistController = {
 
   getProtagonistById: async (req, res) => {
     try {
-      const protagonist = await protagonist.findByPk(req.params.id);
-      res.status(200).json(protagonist);
+      const getprotagonist = await protagonist.findByPk(req.params.id);
+      res.status(200).json(getprotagonist);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -21,8 +21,8 @@ export const protagonistController = {
 
   createProtagonist: async (req, res) => {
     try {
-      const protagonist = await protagonist.create(req.body);
-      res.status(201).json(Protagonist);
+      const newProtagonist = await protagonist.create(req.body);
+      res.status(201).json(newProtagonist);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -30,10 +30,14 @@ export const protagonistController = {
 
   updateProtagonist: async (req, res) => {
     try {
-      await protagonist.update(req.body, {
+      const updateProtagonist = await protagonist.update(req.body, {
         where: { id: req.params.id }
       });
-      res.status(200).json({ message: 'Protagonist updated successfully.' });
+      if (updateProtagonist[0]) {
+        res.status(200).json(updateProtagonist[1]);
+      } else {
+        res.status(404).json({ error: 'protagonist not found' });
+      }
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

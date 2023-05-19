@@ -46,7 +46,7 @@ export const documentController = {
 
   getDocumentById: async (req, res) => {
     try {
-      const document = await document.findByPk(req.params.id, {
+      const getdocument = await document.findByPk(req.params.id, {
         include: [
           {
             model: documentLocation,
@@ -58,8 +58,8 @@ export const documentController = {
           }
         ]
       });
-      if (document) {
-        res.status(200).json(document);
+      if (getdocument) {
+        res.status(200).json(getdocument);
       } else {
         res.status(404).json({ error: 'document not found' });
       }

@@ -23,9 +23,9 @@ export const personController = {
 
   getPersonById: async (req, res) => {
     try {
-      const person = await person.findByPk(req.params.id);
-      if (person) {
-        res.status(200).json(person);
+      const getPerson = await person.findByPk(req.params.id);
+      if (getPerson) {
+        res.status(200).json(getPerson);
       } else {
         res.status(404).json({ error: 'person not found' });
       }
