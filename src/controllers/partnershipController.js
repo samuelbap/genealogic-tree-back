@@ -25,8 +25,8 @@ export const partnershipController = {
   // Get DocumentPartnership by id
   getPartnershipById: async (req, res) => {
     try {
-      const partnership = await partnership.findByPk(req.params.id);
-      res.status(200).json(partnership);
+      const getpartnership = await partnership.findByPk(req.params.id);
+      res.status(200).json(getpartnership);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

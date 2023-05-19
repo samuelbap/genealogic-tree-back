@@ -12,8 +12,8 @@ export const childrenController = {
   // Get Children by id
   getChildById: async (req, res) => {
     try {
-      const children = await children.findByPk(req.params.id);
-      res.status(200).json(children);
+      const getchildren = await children.findByPk(req.params.id);
+      res.status(200).json(getchildren);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -21,8 +21,8 @@ export const childrenController = {
   // Create Children
   createChild: async (req, res) => {
     try {
-      const children = await children.create(req.body);
-      res.status(201).json(children);
+      const newchildren = await children.create(req.body);
+      res.status(201).json(newchildren);
     } catch (err) {
       res.status(500).json({ message: err.message });
     }
@@ -31,10 +31,14 @@ export const childrenController = {
   // Update a children
   async updateChild(req, res) {
     try {
-      await children.update(req.body, {
+      const updateChild = await children.update(req.body, {
         where: { id: req.params.id }
       });
-      res.status(200).json({ message: 'Children updated successfully.' });
+      if (updateChild[0]) {
+        res.status(200).json(updateChild[1]);
+      } else {
+        res.status(404).json({ error: 'childrengit not found' });
+      }
     } catch (err) {
       res.status(500).json({ message: err.message });
     }

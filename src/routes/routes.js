@@ -27,10 +27,10 @@ router.delete('/document-location/:id', documentLocationController.deleteDocumen
 
 // Person routes
 router.get('/people', personController.getAllpeople);
-router.post('/new-person', personController.createPerson);
-router.get('/person/:id', personController.getPersonById);
-router.put('/person/:id', personController.updatePerson);
-router.delete('/person/:id', personController.deletePerson);
+router.post('/people/new-person', personController.createPerson);
+router.get('/people/:id', personController.getPersonById);
+router.put('/people/:id', personController.updatePerson);
+router.delete('/people/:id', personController.deletePerson);
 
 // DocumentProtagonist routes
 router.get('/protagonists', protagonistController.getAllProtagonists);

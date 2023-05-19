@@ -2,10 +2,8 @@
 
 import { documentLocation } from '../models/documentLocation.js';
 
-
 export const documentLocationController = {
-
-  getAllDocumentLocations : async (req, res) => {
+  getAllDocumentLocations: async (req, res) => {
     try {
       const documentLocations = await documentLocation.findAll();
       res.status(200).json(documentLocations);
@@ -14,7 +12,7 @@ export const documentLocationController = {
     }
   },
 
-  createDocumentLocation : async (req, res) => {
+  createDocumentLocation: async (req, res) => {
     try {
       const newDocumentLocation = await documentLocation.create(req.body);
       res.status(201).json(newDocumentLocation);
@@ -23,11 +21,11 @@ export const documentLocationController = {
     }
   },
 
-  getDocumentLocationById : async (req, res) => {
+  getDocumentLocationById: async (req, res) => {
     try {
-      const documentLocation = await documentLocation.findByPk(req.params.id);
-      if (documentLocation) {
-        res.status(200).json(documentLocation);
+      const getdocumentLocation = await documentLocation.findByPk(req.params.id);
+      if (getdocumentLocation) {
+        res.status(200).json(getdocumentLocation);
       } else {
         res.status(404).json({ error: 'documentLocation not found' });
       }
@@ -35,7 +33,7 @@ export const documentLocationController = {
       res.status(500).json({ error: error.message });
     }
   },
-   updateDocumentLocation : async (req, res) => {
+  updateDocumentLocation: async (req, res) => {
     try {
       const updatedDocumentLocation = await documentLocation.update(req.body, {
         where: { id: req.params.id },
@@ -51,7 +49,7 @@ export const documentLocationController = {
       res.status(400).json({ error: error.message });
     }
   },
-  deleteDocumentLocation : async (req, res) => {
+  deleteDocumentLocation: async (req, res) => {
     try {
       const rowsDeleted = await documentLocation.destroy({ where: { id: req.params.id } });
       if (rowsDeleted) {
