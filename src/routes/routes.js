@@ -13,10 +13,12 @@ export const router = express.Router();
 
 // Document routes
 router.get('/documents', documentController.getAllDocuments);
-router.post('/new-document', documentController.createDocument);
-router.get('/document/:id', documentController.getDocumentById);
-router.put('/document/:id', documentController.updateDocument);
-router.delete('/document/:id', documentController.deleteDocument);
+router.post('/documents/new', documentController.createDocument);
+router.get('/documents/:id', documentController.getDocumentById);
+router.put('/documents/:id', documentController.updateDocument);
+router.delete('/documents/:id', documentController.deleteDocument);
+router.get('/documents/get-full', documentController.getFullDocument);
+router.post('/documents/new-full', documentController.createFullDocument);
 
 // DocumentLocation routes
 router.get('/document-locations', documentLocationController.getAllDocumentLocations);

@@ -22,10 +22,12 @@ export const protagonist = sequelize.define('protagonist', {
 
 protagonist.belongsTo(person, {
   foreignKey: 'idPerson',
-  as: 'person'
+  as: 'person',
+  allowNull: false
 });
 
 protagonist.belongsTo(document, {
   foreignKey: 'idDocument',
-  as: 'document'
+  as: 'document',
+  allowNull: false
 });

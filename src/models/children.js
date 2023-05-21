@@ -23,15 +23,18 @@ export const children = sequelize.define('children', {
 
 children.belongsTo(person, {
   foreignKey: 'idChildren',
-  as: 'child'
+  as: 'child',
+  allowNull: false
 });
 
 children.belongsTo(document, {
   foreignKey: 'idDocument',
-  as: 'document'
+  as: 'document',
+  allowNull: false
 });
 
 children.belongsTo(partnership, {
   foreignKey: 'idPartnership',
-  as: 'partnership'
+  as: 'partnership',
+  allowNull: false
 });

@@ -7,16 +7,20 @@ services:
     # container_name: genealogic-tree-back
     environment:
       - NODE_ENV=development
+      - DEBUG=True
     ports:
       - 3001:3001
+    volumes:
+      - .:/app
+    # command: npm install debug
 
-  genealogic-tree-load:
-    build: ./
-    image: genealogic-tree-back
-    # container_name: genealogic-tree-load
-    environment:
-      - NODE_ENV=development
-    command: npm run load
+  # genealogic-tree-load:
+  #   build: ./
+  #   image: genealogic-tree-back
+  #   # container_name: genealogic-tree-load
+  #   environment:
+  #     - NODE_ENV=development
+  #   command: npm run load
 
   db:
     image: postgres:13

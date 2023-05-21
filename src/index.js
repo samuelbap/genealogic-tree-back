@@ -6,6 +6,13 @@ import { router } from './routes/routes.js';
 
 import { sequelize } from './config/database.js';
 
+import { person } from './models/person.js';
+import { partnership } from './models/partnership.js';
+import { children } from './models/children.js';
+import { document } from './models/document.js';
+import { documentLocation } from './models/documentLocation.js';
+import { protagonist } from './models/protagonist.js';
+
 const app = express();
 
 dotenv.config();
@@ -68,6 +75,19 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke!');
 });
+
+const models = {
+  person,
+  partnership,
+  children,
+  document,
+  documentLocation,
+  protagonist
+}
+Object.values(models)
+  .filter(model => typeof model.associate === "function")
+  .forEach(model => model.associate(models));
+// person.associate(models)
 
 // Start idex
 

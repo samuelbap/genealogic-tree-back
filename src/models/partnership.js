@@ -30,15 +30,26 @@ export const partnership = sequelize.define('partnership', {
 
 partnership.belongsTo(document, {
   foreignKey: 'idDocument',
-  as: 'document'
-});
-
-partnership.belongsTo(person, {
-  foreignKey: 'partner',
-  as: 'partner1'
+  as: 'document',
+  allowNull: false
 });
 
 partnership.belongsTo(person, {
   foreignKey: 'partner1',
-  as: 'partner2'
+  allowNull: false
 });
+
+partnership.belongsTo(person, {
+  foreignKey: 'partner2',
+  allowNull: false
+});
+
+// partnership.hasMany(children, {
+//   foreignKey: 'idPartnership',
+//   as: 'children'
+// });
+
+partnership.associate = function(models) {
+  // Associations can be defined here
+  person.hasMany(models.children, { foreignKey: 'idPartnership', as: 'Children' });
+};

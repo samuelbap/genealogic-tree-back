@@ -3,6 +3,8 @@ import { document } from '../models/document.js';
 import { documentLocation } from '../models/documentLocation.js';
 import { person } from '../models/person.js';
 
+import { fullDocumentController } from './fullDocumentController.js'
+
 export const documentController = {
   getAllDocuments: async (req, res) => {
     console.log(res);
@@ -96,7 +98,10 @@ export const documentController = {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  }
+  },
+
+  getFullDocument: fullDocumentController.getFullDocument,
+  createFullDocument: fullDocumentController.createFullDocument,
 };
 
 // module.exports = { documentController };
