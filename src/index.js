@@ -8,7 +8,7 @@ import { sequelize } from './config/database.js';
 
 import { person } from './models/person.js';
 import { partnership } from './models/partnership.js';
-import { children } from './models/children.js';
+import { childRecord } from './models/childRecords.js';
 import { document } from './models/document.js';
 import { documentLocation } from './models/documentLocation.js';
 import { protagonist } from './models/protagonist.js';
@@ -79,7 +79,7 @@ app.use((err, req, res, next) => {
 const models = {
   person,
   partnership,
-  children,
+  childRecord,
   document,
   documentLocation,
   protagonist
@@ -103,7 +103,7 @@ const PORT = process.env.PORT || 3001;
     await sequelize.authenticate();
     console.log('Database connection has been established successfully.');
 
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
     console.log('All models were synchronized successfully.');
 
     app.listen(PORT, () => {

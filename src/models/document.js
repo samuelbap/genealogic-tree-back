@@ -1,10 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
-import { documentLocation } from './documentLocation.js';
-import { person } from './person.js';
-import { protagonist } from './protagonist.js';
-
 export const document = sequelize.define('document', {
   id: {
     type: DataTypes.INTEGER,
@@ -41,20 +37,28 @@ export const document = sequelize.define('document', {
   }
 });
 
-document.belongsTo(documentLocation, {
-  foreignKey: 'locationId',
-  as: 'location'
-});
-
-document.belongsTo(person, {
-  foreignKey: 'rootPersonId',
-  as: 'rootPerson'
-});
-
 document.associate = function (models) {
+
+  document.belongsTo(models.documentLocation, {
+    foreignKey: 'idLocation',
+    as: 'location',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  document.belongsTo(models.person, {
+    foreignKey: 'rootPersonId',
+    as: 'rootPerson',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
   document.belongsToMany(models.person, {
     through: models.protagonist,
     foreignKey: 'idDocument',
-    as: 'protagonists'
-  });
+    otherKey: 'idPerson',
+    as: 'protagonists',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
 };

@@ -1,9 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
-import { person } from './person.js';
-import { document } from './document.js';
-
 export const partnership = sequelize.define('partnership', {
   id: {
     type: DataTypes.INTEGER,
@@ -28,28 +25,45 @@ export const partnership = sequelize.define('partnership', {
   }
 });
 
-partnership.belongsTo(document, {
-  foreignKey: 'idDocument',
-  as: 'document',
-  allowNull: false
-});
-
-partnership.belongsTo(person, {
-  foreignKey: 'partner1',
-  allowNull: false
-});
-
-partnership.belongsTo(person, {
-  foreignKey: 'partner2',
-  allowNull: false
-});
-
-// partnership.hasMany(children, {
-//   foreignKey: 'idPartnership',
-//   as: 'children'
-// });
 
 partnership.associate = function(models) {
-  // Associations can be defined here
-  person.hasMany(models.children, { foreignKey: 'idPartnership', as: 'Children' });
-};
+
+  partnership.hasMany(models.childRecord, {
+    foreignKey: 'idPartnership',
+    as: 'children',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+
+  partnership.belongsTo(models.document, {
+    foreignKey: 'idDocument',
+    as: 'document',
+    allowNull: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  partnership.belongsTo(models.person, {
+    foreignKey: 'partner1',
+    allowNull: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  partnership.belongsTo(models.person, {
+    foreignKey: 'partner2',
+    allowNull: false,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+
+  partnership.belongsToMany(models.person, {
+    through: models.childRecord,
+    foreignKey: 'idPartnership',
+    otherKey: 'idChild',
+    as: 'children',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  });
+
+}

@@ -30,12 +30,51 @@ export const person = sequelize.define('person', {
 });
 
 person.associate = function(models) {
-  // Associations can be defined here
-  person.hasMany(models.protagonist, { foreignKey: 'idPerson', as: 'protagonisms' });
-  person.belongsToMany(models.document, { through: models.protagonist, foreignKey: 'idPerson', as: 'documents' });
-  person.hasMany(models.partnership, { foreignKey: 'partner1', as: 'partnerships_' });
-  person.hasMany(models.partnership, { foreignKey: 'partner2', as: '_partnerships' });
-  person.hasMany(models.children, { foreignKey: 'idChildren', as: 'children' });
-  // person.belongsToMany(models.children, { through: models.partnership, foreignKey: 'partner1', as: 'children_' });
-  // person.belongsToMany(models.children, { through: models.partnership, as: '_children' });
-};
+
+  person.hasMany(models.protagonist, {
+    foreignKey: 'idPerson',
+    as: 'protagonisms',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  person.hasMany(models.partnership, { 
+    foreignKey: 'partner1',
+    as: 'partnerships_',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  person.hasMany(models.partnership, { 
+    foreignKey: 'partner2',
+    as: '_partnerships',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  person.hasMany(models.childRecord, { 
+    foreignKey: 'idChild',
+    as: 'is_children',
+    allowNull: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  person.belongsToMany(models.document, {
+    through: models.protagonist,
+    foreignKey: 'idPerson',
+    otherKey: 'idDocument',
+    as: 'documents',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+
+  person.belongsToMany(models.partnership, {
+    through: models.childRecord,
+    foreignKey: 'idChild',
+    otherKey: 'idPartnership',
+    as: 'parentPartnerships',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  });
+}

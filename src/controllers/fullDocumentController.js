@@ -7,7 +7,7 @@ import { document } from '../models/document.js';
 import { documentLocation } from '../models/documentLocation.js';
 import { partnership } from '../models/partnership.js';
 import { person } from '../models/person.js';
-import { children } from '../models/children.js';
+import { childRecord } from '../models/childRecord.js';
 import { protagonist } from '../models/protagonist.js';
 
 // Helper function to fetch a person tree recursively
@@ -107,7 +107,7 @@ async function createPersonTree(personTree, idDocument = null, idPartner = null)
     if (personTree.commonChildren) {
       for (let child of personTree.commonChildren) {
         const childPerson = await createPersonTree(child, idDocument);
-        await children.create({
+        await childRecord.create({
           document: idDocument,
           child: childPerson.id,
           partnership: parentsPartnership,
