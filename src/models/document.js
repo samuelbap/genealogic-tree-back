@@ -3,6 +3,7 @@ import { sequelize } from '../config/database.js';
 
 import { documentLocation } from './documentLocation.js';
 import { person } from './person.js';
+import { protagonist } from './protagonist.js';
 
 export const document = sequelize.define('document', {
   id: {
@@ -49,3 +50,11 @@ document.belongsTo(person, {
   foreignKey: 'rootPersonId',
   as: 'rootPerson'
 });
+
+document.associate = function (models) {
+  document.belongsToMany(models.person, {
+    through: models.protagonist,
+    foreignKey: 'idDocument',
+    as: 'protagonists'
+  });
+};
