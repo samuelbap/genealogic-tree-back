@@ -34,7 +34,7 @@ const retryFetch = (
 };
 
 
-fs.readFile('src/data.json', 'utf8',  (err, data) => {
+fs.readFile('src/data.json', 'utf8',  async (err, data) => {
   if (err) {
     console.error('Error reading file:', err);
     process.exit(1);
@@ -42,7 +42,7 @@ fs.readFile('src/data.json', 'utf8',  (err, data) => {
 
   for (const jsonData of JSON.parse(data)) {
 
-    retryFetch(url, {
+    await retryFetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
