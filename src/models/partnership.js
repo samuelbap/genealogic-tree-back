@@ -1,3 +1,4 @@
+// partnership.js
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
@@ -14,23 +15,14 @@ export const partnership = sequelize.define('partnership', {
   updatedAt: {
     type: DataTypes.DATE,
     defaultValue: sequelize.literal('NOW()')
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: sequelize.literal('NOW()')
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    defaultValue: sequelize.literal('NOW()')
   }
 });
-
 
 partnership.associate = function(models) {
 
   partnership.hasMany(models.childRecord, {
     foreignKey: 'idPartnership',
-    as: 'children',
+    as: 'childRecords',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
@@ -42,17 +34,19 @@ partnership.associate = function(models) {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
-  
-  partnership.belongsTo(models.person, {
-    foreignKey: 'partner1',
-    allowNull: false,
+
+  partnership.belongsToMany(models.person, {
+    through: models.partners,
+    foreignKey: 'idPartnership',
+    otherKey: 'idPerson',
+    as: 'personPartners',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
-  
-  partnership.belongsTo(models.person, {
-    foreignKey: 'partner2',
-    allowNull: false,
+
+  partnership.hasMany(models.partners, {
+    foreignKey: 'idPartnership',
+    as: 'partnerRecords',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
@@ -60,7 +54,7 @@ partnership.associate = function(models) {
   partnership.belongsToMany(models.person, {
     through: models.childRecord,
     foreignKey: 'idPartnership',
-    otherKey: 'idChild',
+    otherKey: 'idPerson',
     as: 'children',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'

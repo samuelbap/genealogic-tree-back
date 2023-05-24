@@ -29,8 +29,8 @@ export const documentController = {
                 as: 'couplePartnerships',
                 include: [
                   {
-                    model: partners,
-                    as: 'partnerRecords'
+                    model: person,
+                    as: 'personPartners'
                   }
                 ]
               }

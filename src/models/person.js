@@ -1,3 +1,4 @@
+// person.js
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
@@ -38,22 +39,8 @@ person.associate = function(models) {
     onUpdate: 'CASCADE'
   }),
   
-  person.hasMany(models.partnership, { 
-    foreignKey: 'partner1',
-    as: 'partnerships_',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  }),
-  
-  person.hasMany(models.partnership, { 
-    foreignKey: 'partner2',
-    as: '_partnerships',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  }),
-  
   person.hasMany(models.childRecord, { 
-    foreignKey: 'idChild',
+    foreignKey: 'idPerson',
     as: 'is_children',
     allowNull: true,
     onDelete: 'CASCADE',
@@ -70,11 +57,20 @@ person.associate = function(models) {
   }),
 
   person.belongsToMany(models.partnership, {
-    through: models.childRecord,
-    foreignKey: 'idChild',
+    through: models.partners,
+    foreignKey: 'idPerson',
     otherKey: 'idPartnership',
-    as: 'parentPartnerships',
+    as: 'couplePartnerships',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
-  });
+  }),
+
+  person.hasMany(models.partners, { 
+    foreignKey: 'idPerson',
+    as: 'partner',
+    allowNull: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+
 }

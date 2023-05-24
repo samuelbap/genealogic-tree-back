@@ -7,7 +7,7 @@ import { personController } from '../controllers/personController.js';
 
 import { partnershipController } from '../controllers/partnershipController.js';
 import { protagonistController } from '../controllers/protagonistController.js';
-import { childrenController } from '../controllers/childrenController.js';
+import { childRecordController } from '../controllers/childRecordController.js';
 
 export const router = express.Router();
 
@@ -17,7 +17,7 @@ router.post('/documents/new', documentController.createDocument);
 router.get('/documents/:id', documentController.getDocumentById);
 router.put('/documents/:id', documentController.updateDocument);
 router.delete('/documents/:id', documentController.deleteDocument);
-router.get('/documents/get-full', documentController.getFullDocument);
+// router.get('/documents/get-full', documentController.getFullDocument);
 router.post('/documents/new-full', documentController.createFullDocument);
 
 // DocumentLocation routes
@@ -49,8 +49,8 @@ router.put('/partnerships/:id', partnershipController.updatePartnership);
 router.delete('/partnerships/:id', partnershipController.deletePartnership);
 
 // Children routes
-router.get('/children', childrenController.getAllChildren);
-router.post('/children/new', childrenController.createChild);
-router.get('/children/:id', childrenController.getChildById);
-router.put('/children/:id', childrenController.updateChild);
-router.delete('/children/:id', childrenController.deleteChild);
+router.get('/children', childRecordController.getAllchildRecord);
+router.post('/children/new', childRecordController.createChild);
+router.get('/children/:id', childRecordController.getChildById);
+router.put('/children/:id', childRecordController.updateChild);
+router.delete('/children/:id', childRecordController.deleteChild);
