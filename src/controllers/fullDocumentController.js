@@ -16,7 +16,7 @@ export const fullDocumentController = {
       const jsonData = req.body;
 
       // Insert the document location
-      const docLocation = await documentLocation.create(jsonData.documentLocation);
+      const docLocation = await documentLocation.findOrCreate({where: jsonData.documentLocation});
 
       // Traverse the person tree and insert into the database
       const rootPerson = await traversePersonTree(jsonData.rootPerson);
