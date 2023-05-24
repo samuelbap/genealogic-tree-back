@@ -34,7 +34,7 @@
          "title":null,
          "name":null,
          "lastName":null,
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":null,
@@ -46,7 +46,7 @@
                      "lastName":[
                         "ALVAREZ"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -62,7 +62,7 @@
                                     "LOPEZ",
                                     "NIETO"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":null,
@@ -76,7 +76,7 @@
                                              "lastName":[
                                                 "ACUÑA"
                                              ],
-                                             "partner":[
+                                             "partners":[
                                                 {
                                                    "title":null,
                                                    "name":"LUISA",
@@ -100,7 +100,7 @@
                      "lastName":[
                         "MORENO"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -114,7 +114,7 @@
                                  "lastName":[
                                     "SARABIA"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":null,
@@ -128,7 +128,7 @@
                                              "lastName":[
                                                 "HOYOS"
                                              ],
-                                             "partner":[
+                                             "partners":[
                                                 {
                                                    "title":null,
                                                    "name":"TOMAS",
@@ -190,7 +190,7 @@
          "lastName":[
             "CERRADA"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":null,
@@ -205,7 +205,7 @@
                      "lastName":[
                         "CARRILLO"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -221,7 +221,7 @@
                                     "MENDEZ",
                                     "CABRITA"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":null,
@@ -258,7 +258,7 @@
                      "lastName":[
                         "VALLECILLO"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -321,7 +321,7 @@
          "lastName":[
             "ORTEGA"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":"CATALINA",
@@ -335,7 +335,7 @@
                      "lastName":[
                         "ORTEGA"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -349,7 +349,7 @@
                                  "lastName":[
                                     "MARTIN"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":"FELIPA",
@@ -380,7 +380,7 @@
                      "lastName":[
                         "ORTEGA"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -396,7 +396,7 @@
                                     "PIÑA",
                                     "BUSTAMANTE"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":null,
@@ -466,7 +466,7 @@
             "AVILA",
             "ALVARADO"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":"CASILDA",
@@ -519,7 +519,7 @@
             "PACHECO",
             "MALDONADO"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":"INES",
@@ -533,7 +533,7 @@
                      "lastName":[
                         "PACHECO"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -550,7 +550,7 @@
                                     "URBINA",
                                     "MENDOZA"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":"JUAN",
@@ -574,7 +574,7 @@
                   "VASQUEZ",
                   "CORONADO"
                ],
-               "partner":[
+               "partners":[
                   {
                      "title":null,
                      "name":null,
@@ -586,7 +586,7 @@
                               "VASQUEZ",
                               "CORONADO"
                            ],
-                           "partner":[
+                           "partners":[
                               {
                                  "title":null,
                                  "name":null,
@@ -598,7 +598,7 @@
                                           "VASQUEZ",
                                           "CORONADO"
                                        ],
-                                       "partner":[
+                                       "partners":[
                                           {
                                              "title":null,
                                              "name":"MARIA",
@@ -658,7 +658,7 @@
          "lastName":[
             "MALDONADO"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":null,
@@ -672,7 +672,7 @@
                      "lastName":[
                         "MARTIN"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -684,7 +684,7 @@
                                  "lastName":[
                                     "MARTIN"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":"JUAN",
@@ -713,7 +713,7 @@
                      "lastName":[
                         "MARTIN"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -727,7 +727,7 @@
                                  "lastName":[
                                     "TORRES"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":"ANDRES",
@@ -792,7 +792,7 @@
          "lastName":[
             "MACIAS"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":"JOSEFA ENCARNACION",
@@ -806,7 +806,7 @@
                      "lastName":[
                         "MACIAS"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -836,7 +836,7 @@
                      "lastName":[
                         "MACIAS"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":"MIGUEL ALFONSO",
@@ -899,7 +899,7 @@
             "NUÑEZ",
             "BOCANEGRA"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":null,
@@ -912,7 +912,7 @@
                         "NUÑEZ",
                         "BOCANEGRA"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":"CATALINA DE JESUS",
@@ -939,7 +939,7 @@
                "lastName":[
                   "BOCANEGRA"
                ],
-               "partner":[
+               "partners":[
                   {
                      "title":null,
                      "name":"CATALINA",
@@ -953,7 +953,7 @@
                            "lastName":[
                               "HERNANDEZ"
                            ],
-                           "partner":[
+                           "partners":[
                               {
                                  "title":null,
                                  "name":null,
@@ -1018,7 +1018,7 @@
          "lastName":[
             "MEJIA"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":"ISABEL",
@@ -1033,7 +1033,7 @@
                         "PACHECO",
                         "MALDONADO"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":"Cap.",
                            "name":"JUAN",
@@ -1041,7 +1041,7 @@
                               "PACHECO",
                               "MALDONADO"
                            ],
-                           "partner":[
+                           "partners":[
                               {
                                  "title":null,
                                  "name":"MANUELA",
@@ -1070,7 +1070,7 @@
                         "GARCIA",
                         "RIVAS"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":"FERNANDO",
@@ -1078,7 +1078,7 @@
                               "GARCIA",
                               "RIVAS"
                            ],
-                           "partner":[
+                           "partners":[
                               {
                                  "title":null,
                                  "name":null,
@@ -1140,7 +1140,7 @@
          "lastName":[
             "CORNIELES"
          ],
-         "partner":[
+         "partners":[
             {
                "title":null,
                "name":"ANA",
@@ -1154,7 +1154,7 @@
                      "lastName":[
                         "CORNIELES"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -1168,7 +1168,7 @@
                                  "lastName":[
                                     "REBOLLO"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":null,
@@ -1182,7 +1182,7 @@
                                              "lastName":[
                                                 "MIERES"
                                              ],
-                                             "partner":[
+                                             "partners":[
                                                 {
                                                    "title":null,
                                                    "name":null,
@@ -1215,7 +1215,7 @@
                      "lastName":[
                         "CORNIELES"
                      ],
-                     "partner":[
+                     "partners":[
                         {
                            "title":null,
                            "name":null,
@@ -1227,7 +1227,7 @@
                                  "lastName":[
                                     "CORNIELES"
                                  ],
-                                 "partner":[
+                                 "partners":[
                                     {
                                        "title":null,
                                        "name":"MARTIN",
@@ -1241,7 +1241,7 @@
                                              "lastName":[
                                                 "SALAS"
                                              ],
-                                             "partner":[
+                                             "partners":[
                                                 {
                                                    "title":null,
                                                    "name":null,

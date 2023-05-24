@@ -1,7 +1,7 @@
 // backend/src/controllers/partnershipController.js
 import { partnership } from '../models/partnership.js';
 import { person } from '../models/person.js';
-import { partners } from '../models/partners.js';
+import { partner } from '../models/partner.js';
 import { childRecord } from '../models/childRecord.js';
 
 export const partnershipController = {
@@ -11,7 +11,7 @@ export const partnershipController = {
         include: [
           {
             model: person,
-            through: partners,
+            through: partner,
             as: 'partners'
           },
           {
@@ -54,7 +54,7 @@ export const partnershipController = {
         include: [
           {
             model: person,
-            through: partners,
+            through: partner,
             as: 'partners'
           },
           {

@@ -57,17 +57,17 @@ person.associate = function(models) {
   }),
 
   person.belongsToMany(models.partnership, {
-    through: models.partners,
+    through: models.partner,
     foreignKey: 'idPerson',
     otherKey: 'idPartnership',
-    as: 'couplePartnerships',
+    as: 'couplePartnership',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
 
-  person.hasMany(models.partners, { 
+  person.hasMany(models.partner, { 
     foreignKey: 'idPerson',
-    as: 'partner',
+    as: 'partners',
     allowNull: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'

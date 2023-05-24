@@ -6,7 +6,7 @@ import { documentLocation } from '../models/documentLocation.js';
 import { protagonist } from '../models/protagonist.js';
 import { partnership } from '../models/partnership.js';
 import { childRecord } from '../models/childRecord.js';
-import { partners } from '../models/partners.js';
+import { partner } from '../models/partner.js';
 
 export const fullDocumentController = {
 
@@ -49,7 +49,7 @@ export const fullDocumentController = {
 
 }
 const traversePersonTree = async (personData, idDocument = null, rootPerson=null) => {
-  let { title, name, lastName, partner} = personData;
+  let { title, name, lastName, partners} = personData;
 
   lastName = lastName ? lastName.join(' ') : null;
 
@@ -72,8 +72,8 @@ const traversePersonTree = async (personData, idDocument = null, rootPerson=null
   }
   // Loop over partnerships and create those, with children
 
-  if (partner) {
-    for (const partnerData of partner) {
+  if (partners) {
+    for (const partnerData of partners) {
       const { commonChildren } = partnerData;
       
       // Create partner instance
@@ -82,7 +82,7 @@ const traversePersonTree = async (personData, idDocument = null, rootPerson=null
       // Create partnership
       const partnershipInstance = await partnership.create({ idDocument: idDocument });
       
-      await partners.bulkCreate([
+      await partner.bulkCreate([
         { idPerson: personInstance.id, idPartnership: partnershipInstance.id },
         { idPerson: partnerInstance.id, idPartnership: partnershipInstance.id }
       ]);
@@ -116,7 +116,7 @@ const findProtagonists = async (docProtagonists, idDocument) => {
 
   // For each partnership, get all associated partners
   for (const partnershipInstance of partnershipRecords) {
-    const partnersInPartnership = await partners.findAll({ where: { idPartnership: partnershipInstance.id }});
+    const partnersInPartnership = await partner.findAll({ where: { idPartnership: partnershipInstance.id }});
     
     // For each partner record, get the actual person and add to the list
     for (const partnerRecord of partnersInPartnership) {

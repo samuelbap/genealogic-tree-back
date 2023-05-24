@@ -27,6 +27,13 @@ partnership.associate = function(models) {
     onUpdate: 'CASCADE'
   }),
 
+  partnership.hasMany(models.partner, {
+    foreignKey: 'idPartnership',
+    as: 'partnerRecords',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+
   partnership.belongsTo(models.document, {
     foreignKey: 'idDocument',
     as: 'document',
@@ -36,7 +43,7 @@ partnership.associate = function(models) {
   }),
 
   partnership.belongsToMany(models.person, {
-    through: models.partners,
+    through: models.partner,
     foreignKey: 'idPartnership',
     otherKey: 'idPerson',
     as: 'personPartners',
@@ -44,12 +51,7 @@ partnership.associate = function(models) {
     onUpdate: 'CASCADE'
   }),
 
-  partnership.hasMany(models.partners, {
-    foreignKey: 'idPartnership',
-    as: 'partnerRecords',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  }),
+
 
   partnership.belongsToMany(models.person, {
     through: models.childRecord,

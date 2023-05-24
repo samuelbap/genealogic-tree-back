@@ -3,7 +3,7 @@ import { document } from '../models/document.js';
 import { documentLocation } from '../models/documentLocation.js';
 import { person } from '../models/person.js';
 import { partnership } from '../models/partnership.js';
-import { partners } from '../models/partners.js';
+import { partner } from '../models/partner.js';
 import { childRecord } from '../models/childRecord.js';
 
 // import { fullDocumentController } from './fullDocumentController.js'
@@ -23,18 +23,18 @@ export const documentController = {
           {
             model: person,
             as: 'rootPerson',
-            include: [
-              {
-                model: partnership,
-                as: 'couplePartnerships',
-                include: [
-                  {
-                    model: person,
-                    as: 'personPartners'
-                  }
-                ]
-              }
-            ]
+            include: 'couplePartnership'//[
+              // {
+              //   model: partnership,
+              //   as: 'couplePartnership',
+              //   include: [
+              //     {
+                    // model: person,
+                    // as: 'personPartners'
+              //     }
+              //   ]
+              // }
+            // ]
           },
           {
             model: person,

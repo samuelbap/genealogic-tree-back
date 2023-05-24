@@ -7,7 +7,7 @@ import { router } from './routes/routes.js';
 import { sequelize } from './config/database.js';
 
 import { person } from './models/person.js';
-import { partners } from './models/partners.js';
+import { partner } from './models/partner.js';
 import { partnership } from './models/partnership.js';
 import { childRecord } from './models/childRecord.js';
 import { document } from './models/document.js';
@@ -80,7 +80,7 @@ app.use((err, req, res, next) => {
 const models = {
   person,
   partnership,
-  partners,
+  partner,
   childRecord,
   document,
   documentLocation,

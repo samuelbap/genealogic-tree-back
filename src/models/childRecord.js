@@ -30,13 +30,13 @@ childRecord.associate = function(models) {
   
   childRecord.belongsTo(models.document, {
     foreignKey: 'idDocument',
-    as: 'document',
+    as: 'recordDocument',
     allowNull: false
   }),
   
   childRecord.belongsTo(models.partnership, {
     foreignKey: 'idPartnership',
-    as: 'partnership',
+    as: 'parentsPartnership',
     allowNull: false
   })
   
