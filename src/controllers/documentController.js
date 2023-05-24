@@ -2,12 +2,16 @@
 import { document } from '../models/document.js';
 import { documentLocation } from '../models/documentLocation.js';
 import { person } from '../models/person.js';
+import { partnership } from '../models/partnership.js';
+import { partners } from '../models/partners.js';
+import { childRecord } from '../models/childRecord.js';
 
-import { fullDocumentController } from './fullDocumentController.js'
+// import { fullDocumentController } from './fullDocumentController.js'
+import { fullDocumentController } from './fullDocumentController2.js'
 
 export const documentController = {
   getAllDocuments: async (req, res) => {
-    console.log(res);
+    // console.log(res);
 
     try {
       const documents = await document.findAll({
@@ -18,14 +22,27 @@ export const documentController = {
           },
           {
             model: person,
-            as: 'rootPerson'
+            as: 'rootPerson',
+            include: [
+              {
+                model: partnership,
+                as: 'couplePartnerships',
+                include:[{
+                  model:partners,
+                  as: 'partnerRecords'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            model: person,
+            as: 'protagonists'
           }
         ]
       });
       if (documents.length) {
-        res.status(200).json({
-          data: documents
-        });
+        res.status(200).json(documents);
       } else {
         res.status(404).json({
           message: 'not found documents'
@@ -100,8 +117,6 @@ export const documentController = {
     }
   },
 
-  getFullDocument: fullDocumentController.getFullDocument,
+  // getFullDocument: fullDocumentController.getFullDocument,
   createFullDocument: fullDocumentController.createFullDocument,
 };
-
-// module.exports = { documentController };

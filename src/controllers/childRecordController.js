@@ -3,13 +3,21 @@ import { childRecord } from '../models/childRecord.js';
 export const childRecordController = {
   getAllchildRecord: async (req, res) => {
     try {
-      const childRecord = await childRecord.findAll();
-      res.json(childRecord);
+      const childRecords = await childRecord.findAll();
+      if (childRecords.length) {
+        res.status(200).json({
+          data: childRecords
+        });
+      } else {
+        res.status(404).json({
+          message: 'children not found'
+        });
+      }
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   },
-  // Get childRecord by id
+
   getChildById: async (req, res) => {
     try {
       const getchildRecord = await childRecord.findByPk(req.params.id);
@@ -18,7 +26,7 @@ export const childRecordController = {
       res.status(500).json({ message: err.message });
     }
   },
-  // Create childRecord
+
   createChild: async (req, res) => {
     try {
       const newchildRecord = await childRecord.create(req.body);
@@ -28,7 +36,6 @@ export const childRecordController = {
     }
   },
 
-  // Update a childRecord
   async updateChild(req, res) {
     try {
       const updateChild = await childRecord.update(req.body, {
@@ -37,7 +44,7 @@ export const childRecordController = {
       if (updateChild[0]) {
         res.status(200).json(updateChild[1]);
       } else {
-        res.status(404).json({ error: 'childRecordgit not found' });
+        res.status(404).json({ error: 'childRecord not found' });
       }
     } catch (err) {
       res.status(500).json({ message: err.message });

@@ -1,4 +1,4 @@
-// controllers/documentController.js
+// backend/src/controllers/fullDocumentController.js
 
 import { document } from '../models/document.js';
 import { person } from '../models/person.js';
@@ -8,94 +8,142 @@ import { partnership } from '../models/partnership.js';
 import { childRecord } from '../models/childRecord.js';
 import { partners } from '../models/partners.js';
 
-export const loadDocument = async (req, res) => {
-  try {
-    // Parse the JSON data
-    const jsonData = JSON.parse(req.body.data);
+export const fullDocumentController = {
 
-    // Insert the document location
-    const docLocation = await documentLocation.create(jsonData.documentLocation);
+  createFullDocument: async (req, res) => {
+    try {
+      // Parse the JSON data
+      const jsonData = req.body;
 
-    // Traverse the person tree and insert into the database
-    const rootPerson = await traversePersonTree(jsonData.rootPerson);
+      // Insert the document location
+      const docLocation = await documentLocation.create(jsonData.documentLocation);
 
-    // Insert the document itself
-    const doc = await document.create({
-      ...jsonData,
-      idLocation: docLocation.id,
-      rootPersonId: rootPerson.id
-    });
+      // Traverse the person tree and insert into the database
+      const rootPerson = await traversePersonTree(jsonData.rootPerson);
 
-    // Loop over the protagonists array and create protagonists
-    const protagonistPersons = await findProtagonists(jsonData.rootPerson, doc.id);
-    for (const protagonistPerson of protagonistPersons) {
-      await protagonist.create({
-        idDocument: doc.id,
-        idPerson: protagonistPerson.id
+      // Insert the document itself
+      const doc = await document.create({
+        ...jsonData,
+        idLocation: docLocation.id,
+        rootPersonId: rootPerson.id
       });
+
+      await traversePersonTree(jsonData.rootPerson, doc.id, rootPerson);
+
+      // Loop over the protagonists array and create protagonists
+      const protagonistPersons = await findProtagonists(jsonData.protagonists, doc.id);
+      for (const protagonistPerson of protagonistPersons) {
+        await protagonist.create({
+          idDocument: doc.id,
+          idPerson: protagonistPerson.id
+        });
+      }
+
+      res.status(200).json({ message: 'Document loaded successfully' });
+
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Error loading document' });
     }
-
-    res.status(200).json({ message: 'Document loaded successfully' });
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: 'Error loading document' });
   }
-}
 
-const traversePersonTree = async (personData) => {
+}
+const traversePersonTree = async (personData, idDocument = null, rootPerson=null) => {
+  let { title, name, lastName, partner} = personData;
+
+  lastName = lastName ? lastName.join(' ') : null;
+
   // Insert the person
-  const personResult = await person.create(personData);
+  // const personInstance = await person.findOrCreate({
+  const personInstance = (
+    rootPerson ?
+      rootPerson :
+        await person.create({ 
+          title: title,
+          name: name,
+          lastName: lastName
+        })
+  )
 
+  // console.log({ title, name, lastName, partner}, personInstance)
+
+  if (! idDocument) {
+    return personInstance
+  }
   // Loop over partnerships and create those, with children
-  for (const partnershipData of personData.partnerships) {
-    const partner = await person.create(partnershipData.partner);
-    const partnershipResult = await partnership.create();
 
-    await partners.bulkCreate([
-      { personId: personResult.id, partnershipId: partnershipResult.id },
-      { personId: partner.id, partnershipId: partnershipResult.id }
-    ]);
+  if (partner) {
+    for (const partnerData of partner) {
+      const { commonChildren } = partnerData;
+      
+      // Create partner instance
+      const partnerInstance = await traversePersonTree(partnerData, idDocument);
 
-    for (const childData of partnershipData.children) {
-      const child = await person.create(childData);
-      await childRecord.create({
-        idChild: child.id,
-        idDocument: partnershipResult.id,
-        idPartnership: partnershipResult.id
-      });
+      // Create partnership
+      const partnershipInstance = await partnership.create({ idDocument: idDocument });
+      
+      await partners.bulkCreate([
+        { idPerson: personInstance.id, idPartnership: partnershipInstance.id },
+        { idPerson: partnerInstance.id, idPartnership: partnershipInstance.id }
+      ]);
+
+      // Create child records
+      if (commonChildren) {
+        for (const childData of commonChildren) {
+          const childInstance = await traversePersonTree(childData, idDocument);
+          await childRecord.create({ 
+            idPerson: childInstance.id,
+            idPartnership: partnershipInstance.id,
+            idDocument: idDocument
+          });
+        }
+      }
     }
   }
 
-  return personResult;
+  return personInstance;
 }
 
-const findProtagonists = async (rootPersonData, documentId) => {
+const findProtagonists = async (docProtagonists, idDocument) => {
+
   // Placeholder for protagonist Persons
   let protagonists = [];
 
-  // Search through the partnerships for protagonists
-  for (const partnershipData of rootPersonData.partnerships) {
-    const partnerPerson = await person.findOne({ where: { name: partnershipData.partner.name, lastName: partnershipData.partner.lastName }});
-    const partnershipRecord = await partnership.findOne({ where: { id: partnerPerson.id }});
-    const childRecords = await childRecord.findAll({ where: { idPartnership: partnershipRecord.id }});
+  // Search through the partnership and child records for protagonists
+  const partnershipRecords = await partnership.findAll({ where: { idDocument: idDocument }});
 
-    for (const childRecord of childRecords) {
-      if (childRecord.idDocument === documentId) {
-        protagonists.push(partnerPerson);
-      }
+  let allPartners = [];
+
+  // For each partnership, get all associated partners
+  for (const partnershipInstance of partnershipRecords) {
+    const partnersInPartnership = await partners.findAll({ where: { idPartnership: partnershipInstance.id }});
+    
+    // For each partner record, get the actual person and add to the list
+    for (const partnerRecord of partnersInPartnership) {
+      // console.log(partnerRecord)
+      allPartners.push(partnerRecord);
     }
   }
 
-  // Search through children for protagonists
-  for (const childData of rootPersonData.children) {
-    const childPerson = await person.findOne({ where: { name: childData.name, lastName: childData.lastName }});
-    const childRecord = await childRecord.findOne({ where: { idChild: childPerson.id }});
+  const childRecords = (await childRecord.findAll({ where: { idDocument: idDocument }})).map(record => record.idPerson) ;
 
-    if (childRecord && childRecord.idDocument === documentId) {
-        protagonists.push(childPerson);
+  allPartners = allPartners.map(record => record.idPerson);
+
+  const relatedPersons = [...allPartners, ...childRecords];
+
+  // Check if each person in the protagonist array is related to the document
+  for (const personData of docProtagonists) {
+    const personInstance = await person.findOne({
+      where: {
+        title: personData.title,
+        name: personData.name,
+        lastName: personData.lastName ? personData.lastName.join(' ') : null
       }
+    });
+    if (personInstance && relatedPersons.includes(personInstance.id)) {
+      protagonists.push(personInstance);
     }
-  
-    return protagonists;
   }
+
+  return protagonists;
+};

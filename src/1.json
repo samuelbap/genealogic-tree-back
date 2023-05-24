@@ -1,5 +1,4 @@
 {
-  "id":1,
   "documentType":"DISPENSA MATRIMONIAL",
   "eventLocation":"TRUJILLO",
   "issueDate":"1668",
@@ -14,7 +13,7 @@
      "institution":"ARCHIVO ARQUIDIOSESANO DE CARACAS",
      "idBook":"LIBRO 1655-1708"
   },
-  "protagonist":[
+  "protagonists":[
      {
         "title":null,
         "name":"TOMAS",

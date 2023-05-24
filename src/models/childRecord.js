@@ -1,3 +1,4 @@
+// childRecord.js
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
 
@@ -22,7 +23,7 @@ export const childRecord = sequelize.define('childRecord', {
 childRecord.associate = function(models) {
 
   childRecord.belongsTo(models.person, {
-    foreignKey: 'idChild',
+    foreignKey: 'idPerson',
     as: 'child',
     allowNull: false
   }),

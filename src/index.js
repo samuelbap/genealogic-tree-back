@@ -7,8 +7,9 @@ import { router } from './routes/routes.js';
 import { sequelize } from './config/database.js';
 
 import { person } from './models/person.js';
+import { partners } from './models/partners.js';
 import { partnership } from './models/partnership.js';
-import { childRecord } from './models/childRecords.js';
+import { childRecord } from './models/childRecord.js';
 import { document } from './models/document.js';
 import { documentLocation } from './models/documentLocation.js';
 import { protagonist } from './models/protagonist.js';
@@ -79,6 +80,7 @@ app.use((err, req, res, next) => {
 const models = {
   person,
   partnership,
+  partners,
   childRecord,
   document,
   documentLocation,
@@ -86,7 +88,10 @@ const models = {
 }
 Object.values(models)
   .filter(model => typeof model.associate === "function")
-  .forEach(model => model.associate(models));
+  .forEach(model => {
+    // console.log(model.associate.toString()+'\n');
+    model.associate(models)
+  });
 // person.associate(models)
 
 // Start idex
