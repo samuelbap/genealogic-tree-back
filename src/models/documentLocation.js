@@ -4,7 +4,7 @@ import { sequelize } from '../config/database.js';
 export const documentLocation = sequelize.define('documentLocation', {
   id: {
     type: DataTypes.INTEGER,
-    // primaryKey: true,
+    primaryKey: true,
     autoIncrement: true
   },
   country: {
