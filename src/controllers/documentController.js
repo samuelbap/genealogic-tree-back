@@ -7,7 +7,7 @@ import { partners } from '../models/partners.js';
 import { childRecord } from '../models/childRecord.js';
 
 // import { fullDocumentController } from './fullDocumentController.js'
-import { fullDocumentController } from './fullDocumentController2.js'
+import { fullDocumentController } from './fullDocumentController.js';
 
 export const documentController = {
   getAllDocuments: async (req, res) => {
@@ -27,9 +27,10 @@ export const documentController = {
               {
                 model: partnership,
                 as: 'couplePartnerships',
-                include:[{
-                  model:partners,
-                  as: 'partnerRecords'
+                include: [
+                  {
+                    model: partners,
+                    as: 'partnerRecords'
                   }
                 ]
               }
@@ -118,5 +119,5 @@ export const documentController = {
   },
 
   // getFullDocument: fullDocumentController.getFullDocument,
-  createFullDocument: fullDocumentController.createFullDocument,
+  createFullDocument: fullDocumentController.createFullDocument
 };
