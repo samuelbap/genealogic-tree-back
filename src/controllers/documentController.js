@@ -2,11 +2,7 @@
 import { document } from '../models/document.js';
 import { documentLocation } from '../models/documentLocation.js';
 import { person } from '../models/person.js';
-import { partnership } from '../models/partnership.js';
-import { partner } from '../models/partner.js';
-import { childRecord } from '../models/childRecord.js';
 
-// import { fullDocumentController } from './fullDocumentController.js'
 import { fullDocumentController } from './fullDocumentController.js';
 
 export const documentController = {
@@ -118,6 +114,7 @@ export const documentController = {
     }
   },
 
-  // getFullDocument: fullDocumentController.getFullDocument,
+  getFullDocument: fullDocumentController.getFullDocument,
+  getFullDocument2: fullDocumentController.getFullDocument2,
   createFullDocument: fullDocumentController.createFullDocument
 };

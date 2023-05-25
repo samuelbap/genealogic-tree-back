@@ -53,7 +53,12 @@ document.associate = function (models) {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
-  
+
+  document.hasMany(models.protagonist, {
+    foreignKey: 'idDocument',
+    as: 'protagonies'
+  }),
+
   document.belongsToMany(models.person, {
     through: models.protagonist,
     foreignKey: 'idDocument',

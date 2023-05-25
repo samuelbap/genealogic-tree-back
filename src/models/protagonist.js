@@ -21,13 +21,13 @@ protagonist.associate = function (models) {
 
   protagonist.belongsTo(models.person, {
     foreignKey: 'idPerson',
-    as: 'person',
+    // as: 'person',
     allowNull: false
   }),
 
   protagonist.belongsTo(models.document, {
     foreignKey: 'idDocument',
-    as: 'document',
+    // as: 'document',
     allowNull: false
   })
 

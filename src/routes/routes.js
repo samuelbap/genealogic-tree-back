@@ -17,7 +17,7 @@ router.post('/documents/new', documentController.createDocument);
 router.get('/documents/:id', documentController.getDocumentById);
 router.put('/documents/:id', documentController.updateDocument);
 router.delete('/documents/:id', documentController.deleteDocument);
-// router.get('/documents/get-full', documentController.getFullDocument);
+router.get('/documents/get-full/:id', documentController.getFullDocument2);
 router.post('/documents/new-full', documentController.createFullDocument);
 
 // DocumentLocation routes

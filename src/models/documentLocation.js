@@ -44,3 +44,12 @@ export const documentLocation = sequelize.define('documentLocation', {
     defaultValue: sequelize.literal('NOW()')
   }
 });
+
+documentLocation.associate = function (models) {
+
+  documentLocation.hasMany(models.document, {
+    foreignKey: 'idLocation',
+    as: 'documents'
+  })
+
+};

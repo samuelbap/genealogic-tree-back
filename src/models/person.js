@@ -41,12 +41,17 @@ person.associate = function(models) {
   
   person.hasMany(models.childRecord, { 
     foreignKey: 'idPerson',
-    as: 'is_children',
+    as: 'children',
     allowNull: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
   
+  person.hasMany(models.document, {
+    as: 'rootDocuments',
+    foreignKey: 'rootPersonId'
+  }),
+
   person.belongsToMany(models.document, {
     through: models.protagonist,
     foreignKey: 'idPerson',
@@ -56,19 +61,19 @@ person.associate = function(models) {
     onUpdate: 'CASCADE'
   }),
 
+  person.hasMany(models.partner, { 
+    foreignKey: 'idPerson',
+    as: 'partners',
+    allowNull: true,
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+
   person.belongsToMany(models.partnership, {
     through: models.partner,
     foreignKey: 'idPerson',
     otherKey: 'idPartnership',
     as: 'couplePartnership',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE'
-  }),
-
-  person.hasMany(models.partner, { 
-    foreignKey: 'idPerson',
-    as: 'partners',
-    allowNull: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   })
