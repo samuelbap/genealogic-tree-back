@@ -14,7 +14,7 @@ export const documentController = {
         include: [
           {
             model: documentLocation,
-            as: 'location'
+            as: 'documentLocation'
           },
           {
             model: person,
@@ -66,7 +66,7 @@ export const documentController = {
         include: [
           {
             model: documentLocation,
-            as: 'location'
+            as: 'documentLocation'
           },
           {
             model: person,

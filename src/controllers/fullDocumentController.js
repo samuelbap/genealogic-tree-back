@@ -14,10 +14,15 @@ import { Op } from 'sequelize';
 
 export const fullDocumentController = {
   createFullDocument: async (req, res) => {
+
+    const t = await sequelize.transaction();
     try {
-      const t = await sequelize.transaction();
       
       const jsonData = req.body;
+
+      delete jsonData.documentLocation.id
+      delete jsonData.id
+
       const docLocation = await documentLocation.findOrCreate({where: jsonData.documentLocation, transaction: t});
       const rootPerson = await traversePersonTree(jsonData.rootPerson, null, null, t);
 
@@ -51,7 +56,7 @@ export const fullDocumentController = {
         include: [
           {
             model: documentLocation,
-            as: 'location',
+            as: 'documentLocation',
           },
           {
             model: person,
@@ -100,7 +105,7 @@ export const fullDocumentController = {
         include: [
           {
             model: documentLocation,
-            as: 'location',
+            as: 'documentLocation',
           },
           {
             model: person,
@@ -109,6 +114,7 @@ export const fullDocumentController = {
               {
                 model: partnership,
                 as: 'couplePartnership',
+                where: { idDocument: req.params.id },
                 include: [
                   {
                     model: partner,
@@ -132,6 +138,13 @@ export const fullDocumentController = {
       const plainDoc = doc.get({ plain: true });
       plainDoc.rootPerson = await formatPerson(plainDoc.rootPerson);  // Format the root person
 
+      let protagonistsArray = []
+      for (let protagonistData of plainDoc.protagonists) {
+        protagonistsArray.push(await formatPerson(protagonistData));
+      };
+
+      plainDoc.protagonists = protagonistsArray
+
       res.json(plainDoc);
     } catch (error) {
       console.log(error);
@@ -148,7 +161,29 @@ const traversePersonTree = async (personData, idDocument = null, rootPerson=null
     title: title,
     name: name,
     lastName: lastName ? lastName.join(' ') : null
-  }, { transaction });
+    }, { transaction });
+
+    // const personInstance = rootPerson ? rootPerson : await person.findOrCreate({
+    //   include: [
+    //     {
+    //       model: partnership,
+    //       as: 'couplePartnership',
+    //       // where: { idDocument: partnershipObject.idDocument },
+    //       include: [
+    //         {
+    //           model: document,
+    //           as: 'document',
+    //           where: { eventLocation: { [Op.like]: document.findOne({where:{id: idDocument}}).eventLocation } } 
+    //         },
+    //       ],
+    //     },
+    //   ],
+    //   where:{ 
+    //     title: title,
+    //     name: name,
+    //     lastName: lastName ? lastName.join(' ') : null
+    //   }, transaction });
+
 
   if (idDocument && partners) {
     for (const partnerData of partners) {
@@ -194,6 +229,7 @@ const findProtagonists = async (docProtagonists, idDocument, transaction) => {
   ];
 
   for (const personData of docProtagonists) {
+    // console.log(personData.lastName)
     const personInstance = await person.findOne({
       where: {
         title: personData.title,
@@ -215,79 +251,80 @@ const formatPerson = async (personObject) => {
   let formattedPerson = {
     title: personObject.title,
     name: personObject.name,
-    lastName: personObject.lastName,
+    lastName: personObject.lastName ? personObject.lastName.split(' ') : null,
     partners: [],
   };
 
-  for(let partnershipObject of personObject.couplePartnership) {
+  if (personObject.couplePartnership) {
+    for(let partnershipObject of personObject.couplePartnership) {
 
-    for(let record of partnershipObject.partnerRecords) {
-      if (record.idPerson !== personObject.id) {
-        let partnerPerson = await person.findByPk(record.idPerson, {
-          include: [
-            {
-              model: partnership,
-              as: 'couplePartnership',
-              where: { idDocument: partnershipObject.idDocument },
-              include: [
-                {
-                  model: partner,
-                  as: 'partnerRecords',
-                  where: { idPerson: { [Op.ne]: personObject.id } } 
-                },
-              ],
+      for(let record of partnershipObject.partnerRecords) {
+        if (record.idPerson !== personObject.id) {
+          let partnerPerson = await person.findByPk(record.idPerson, {
+            include: [
+              {
+                model: partnership,
+                as: 'couplePartnership',
+                where: { idDocument: partnershipObject.idDocument },
+                include: [
+                  {
+                    model: partner,
+                    as: 'partnerRecords',
+                    where: { idPerson: { [Op.ne]: personObject.id } } 
+                  },
+                ],
+              },
+            ],
+          });  // Additional query
+          let partnerObject = await formatPerson(partnerPerson);  // Recursive call
+
+          // Retrieve common children
+          let commonChildrenRecords = await childRecord.findAll({
+            where: {
+              idPartnership: partnershipObject.id
             },
-          ],
-        });  // Additional query
-        let partnerObject = await formatPerson(partnerPerson);  // Recursive call
+            include: [
+              {
+                model: person,
+                as: 'child',
+                include: [
+                  {
+                    model: partnership,
+                    as: 'couplePartnership',
+                    where: { idDocument: partnershipObject.idDocument },
+                    include: [
+                      {
+                        model: partner,
+                        as: 'partnerRecords',
+                        // where: { idPerson: { [Op.ne]: personObject.id } } 
+                      },
+                    ],
+                  },
+                ],
+              }
+            ]
+          });
 
-        // Retrieve common children
-        let commonChildrenRecords = await childRecord.findAll({
-          where: {
-            idPartnership: partnershipObject.id
-          },
-          include: [
-            {
-              model: person,
-              as: 'child',
-              include: [
-                {
-                  model: partnership,
-                  as: 'couplePartnership',
-                  where: { idDocument: partnershipObject.idDocument },
-                  include: [
-                    {
-                      model: partner,
-                      as: 'partnerRecords',
-                      // where: { idPerson: { [Op.ne]: personObject.id } } 
-                    },
-                  ],
-                },
-              ],
-            }
-          ]
-        });
+          // console.log('commonChildrenRecords___',commonChildrenRecords.map(record => {record.get({ plain: true }).child}))
+          
+          partnerObject.commonChildren = await Promise.all(commonChildrenRecords.map(async record => {
+            return await formatPerson(record.get({ plain: true }).child);
+          }));
 
-        // console.log('commonChildrenRecords___',commonChildrenRecords.map(record => {record.get({ plain: true }).child}))
-        
-        partnerObject.commonChildren = await Promise.all(commonChildrenRecords.map(async record => {
-          return await formatPerson(record.get({ plain: true }).child);
-        }));
+          // console.log('commonChildren__________',await partnerObject.commonChildren)
 
-        console.log('commonChildren__________',await partnerObject.commonChildren)
+          // partner.commonChildren = commonChildrenRecords.map(record => ({
+          //   title: record.child.title,
+          //   name: record.child.name,
+          //   lastName: record.child.lastName,
+          // }));
 
-        // partner.commonChildren = commonChildrenRecords.map(record => ({
-        //   title: record.child.title,
-        //   name: record.child.name,
-        //   lastName: record.child.lastName,
-        // }));
-
-        formattedPerson.partners.push(partnerObject);
-        console.log('___________partnerObject',partnerObject)
+          formattedPerson.partners.push(partnerObject);
+          // console.log('___________partnerObject',partnerObject)
+        }
       }
     }
   }
-
   return formattedPerson;
 };
 

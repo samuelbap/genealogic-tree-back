@@ -42,7 +42,7 @@ document.associate = function (models) {
 
   document.belongsTo(models.documentLocation, {
     foreignKey: 'idLocation',
-    as: 'location',
+    as: 'documentLocation',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
   }),
