@@ -3,27 +3,43 @@ import { document } from '../models/document.js';
 import { documentLocation } from '../models/documentLocation.js';
 import { person } from '../models/person.js';
 
+import { fullDocumentController } from './fullDocumentController.js';
+
 export const documentController = {
   getAllDocuments: async (req, res) => {
-    console.log(res);
+    // console.log(res);
 
     try {
       const documents = await document.findAll({
         include: [
           {
             model: documentLocation,
-            as: 'location'
+            as: 'documentLocation'
           },
           {
             model: person,
-            as: 'rootPerson'
+            as: 'rootPerson',
+            include: 'couplePartnership'//[
+              // {
+              //   model: partnership,
+              //   as: 'couplePartnership',
+              //   include: [
+              //     {
+                    // model: person,
+                    // as: 'personPartners'
+              //     }
+              //   ]
+              // }
+            // ]
+          },
+          {
+            model: person,
+            as: 'protagonists'
           }
         ]
       });
       if (documents.length) {
-        res.status(200).json({
-          data: documents
-        });
+        res.status(200).json(documents);
       } else {
         res.status(404).json({
           message: 'not found documents'
@@ -50,7 +66,7 @@ export const documentController = {
         include: [
           {
             model: documentLocation,
-            as: 'location'
+            as: 'documentLocation'
           },
           {
             model: person,
@@ -96,7 +112,9 @@ export const documentController = {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  }
-};
+  },
 
-// module.exports = { documentController };
+  getFullDocument: fullDocumentController.getFullDocument,
+  getFullDocument2: fullDocumentController.getFullDocument2,
+  createFullDocument: fullDocumentController.createFullDocument
+};

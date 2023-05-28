@@ -6,6 +6,14 @@ import { router } from './routes/routes.js';
 
 import { sequelize } from './config/database.js';
 
+import { person } from './models/person.js';
+import { partner } from './models/partner.js';
+import { partnership } from './models/partnership.js';
+import { childRecord } from './models/childRecord.js';
+import { document } from './models/document.js';
+import { documentLocation } from './models/documentLocation.js';
+import { protagonist } from './models/protagonist.js';
+
 const app = express();
 
 dotenv.config();
@@ -69,6 +77,23 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke!');
 });
 
+const models = {
+  person,
+  partnership,
+  partner,
+  childRecord,
+  document,
+  documentLocation,
+  protagonist
+}
+Object.values(models)
+  .filter(model => typeof model.associate === "function")
+  .forEach(model => {
+    // console.log(model.associate.toString()+'\n');
+    model.associate(models)
+  });
+// person.associate(models)
+
 // Start idex
 
 /*
@@ -83,7 +108,7 @@ const PORT = process.env.PORT || 3001;
     await sequelize.authenticate();
     console.log('Database connection has been established successfully.');
 
-    await sequelize.sync();
+    await sequelize.sync({ force: true });
     console.log('All models were synchronized successfully.');
 
     app.listen(PORT, () => {

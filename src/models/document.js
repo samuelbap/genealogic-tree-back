@@ -1,8 +1,6 @@
+// document.js
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../config/database.js';
-
-import { documentLocation } from './documentLocation.js';
-import { person } from './person.js';
 
 export const document = sequelize.define('document', {
   id: {
@@ -40,12 +38,33 @@ export const document = sequelize.define('document', {
   }
 });
 
-document.belongsTo(documentLocation, {
-  foreignKey: 'locationId',
-  as: 'location'
-});
+document.associate = function (models) {
 
-document.belongsTo(person, {
-  foreignKey: 'rootPersonId',
-  as: 'rootPerson'
-});
+  document.belongsTo(models.documentLocation, {
+    foreignKey: 'idLocation',
+    as: 'documentLocation',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+  
+  document.belongsTo(models.person, {
+    foreignKey: 'rootPersonId',
+    as: 'rootPerson',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  }),
+
+  document.hasMany(models.protagonist, {
+    foreignKey: 'idDocument',
+    as: 'protagonies'
+  }),
+
+  document.belongsToMany(models.person, {
+    through: models.protagonist,
+    foreignKey: 'idDocument',
+    otherKey: 'idPerson',
+    as: 'protagonists',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+};

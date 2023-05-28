@@ -7,48 +7,50 @@ import { personController } from '../controllers/personController.js';
 
 import { partnershipController } from '../controllers/partnershipController.js';
 import { protagonistController } from '../controllers/protagonistController.js';
-import { childrenController } from '../controllers/childrenController.js';
+import { childRecordController } from '../controllers/childRecordController.js';
 
 export const router = express.Router();
 
 // Document routes
 router.get('/documents', documentController.getAllDocuments);
-router.post('/new-document', documentController.createDocument);
-router.get('/document/:id', documentController.getDocumentById);
-router.put('/document/:id', documentController.updateDocument);
-router.delete('/document/:id', documentController.deleteDocument);
+router.post('/documents/new', documentController.createDocument);
+router.get('/documents/:id', documentController.getDocumentById);
+router.put('/documents/:id', documentController.updateDocument);
+router.delete('/documents/:id', documentController.deleteDocument);
+router.get('/documents/get-full/:id', documentController.getFullDocument2);
+router.post('/documents/new-full', documentController.createFullDocument);
 
 // DocumentLocation routes
 router.get('/document-locations', documentLocationController.getAllDocumentLocations);
-router.post('/new-document-location', documentLocationController.createDocumentLocation);
-router.get('/document-location/:id', documentLocationController.getDocumentLocationById);
-router.put('/document-location/:id', documentLocationController.updateDocumentLocation);
-router.delete('/document-location/:id', documentLocationController.deleteDocumentLocation);
+router.post('/document-locations/new', documentLocationController.createDocumentLocation);
+router.get('/document-locations/:id', documentLocationController.getDocumentLocationById);
+router.put('/document-locations/:id', documentLocationController.updateDocumentLocation);
+router.delete('/document-locations/:id', documentLocationController.deleteDocumentLocation);
 
 // Person routes
 router.get('/people', personController.getAllpeople);
-router.post('/people/new-person', personController.createPerson);
+router.post('/people/new', personController.createPerson);
 router.get('/people/:id', personController.getPersonById);
 router.put('/people/:id', personController.updatePerson);
 router.delete('/people/:id', personController.deletePerson);
 
 // DocumentProtagonist routes
 router.get('/protagonists', protagonistController.getAllProtagonists);
-router.post('/new-protagonist', protagonistController.createProtagonist);
-router.get('/protagonist/:id', protagonistController.getProtagonistById);
-router.put('/protagonist/:id', protagonistController.updateProtagonist);
-router.delete('/protagonist/:id', protagonistController.deleteProtagonist);
+router.post('protagonists/new', protagonistController.createProtagonist);
+router.get('/protagonists/:id', protagonistController.getProtagonistById);
+router.put('/protagonists/:id', protagonistController.updateProtagonist);
+router.delete('/protagonists/:id', protagonistController.deleteProtagonist);
 
 // Partnership routes
 router.get('/partnerships', partnershipController.getAllPartnerships);
-router.get('/partnership/:id', partnershipController.getPartnershipById);
-router.post('/new-partnership', partnershipController.createPartnership);
-router.put('/partnership/:id', partnershipController.updatePartnership);
-router.delete('/partnership/:id', partnershipController.deletePartnership);
+router.get('/partnerships/:id', partnershipController.getPartnershipById);
+router.post('/partnerships/new', partnershipController.createPartnership);
+router.put('/partnerships/:id', partnershipController.updatePartnership);
+router.delete('/partnerships/:id', partnershipController.deletePartnership);
 
 // Children routes
-router.get('/children', childrenController.getAllChildren);
-router.post('/new-child', childrenController.createChild);
-router.get('/child/:id', childrenController.getChildById);
-router.put('/child/:id', childrenController.updateChild);
-router.delete('/child/:id', childrenController.deleteChild);
+router.get('/children', childRecordController.getAllchildRecord);
+router.post('/children/new', childRecordController.createChild);
+router.get('/children/:id', childRecordController.getChildById);
+router.put('/children/:id', childRecordController.updateChild);
+router.delete('/children/:id', childRecordController.deleteChild);

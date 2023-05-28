@@ -25,7 +25,7 @@ export const documentLocation = sequelize.define('documentLocation', {
   },
   parish: {
     type: DataTypes.STRING(255),
-    allowNull: false
+    // allowNull: false
   },
   institution: {
     type: DataTypes.STRING(255),
@@ -44,3 +44,12 @@ export const documentLocation = sequelize.define('documentLocation', {
     defaultValue: sequelize.literal('NOW()')
   }
 });
+
+documentLocation.associate = function (models) {
+
+  documentLocation.hasMany(models.document, {
+    foreignKey: 'idLocation',
+    as: 'documents'
+  })
+
+};
