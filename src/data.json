@@ -740,7 +740,21 @@
                     {
                       "title": null,
                       "name": "CATALINA",
-                      "lastName": ["OROZCO"]
+                      "lastName": ["OROZCO"],
+                      "partners": [
+                        {
+                          "title": null,
+                          "name": null,
+                          "lastName": ["RODRIGUEZ", "CARDENAS"],
+                          "commonChildren": [
+                            {
+                              "title": null,
+                              "name": "JOSE ANTONIO",
+                              "lastName": ["RODRIGUEZ", "CARDENAS"]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -865,7 +879,7 @@
                         {
                           "title": null,
                           "name": "IGNACIO",
-                          "lastName": ["GARCIA", "RIVAS"]
+                          "lastName": ["GARCIA", "DE", "RIVAS"]
                         }
                       ]
                     }
