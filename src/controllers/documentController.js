@@ -19,18 +19,7 @@ export const documentController = {
           {
             model: person,
             as: 'rootPerson',
-            include: 'couplePartnership'//[
-              // {
-              //   model: partnership,
-              //   as: 'couplePartnership',
-              //   include: [
-              //     {
-                    // model: person,
-                    // as: 'personPartners'
-              //     }
-              //   ]
-              // }
-            // ]
+            include: 'couplePartnership'
           },
           {
             model: person,
@@ -71,6 +60,10 @@ export const documentController = {
           {
             model: person,
             as: 'rootPerson'
+          },
+          {
+            model: person,
+            as: 'protagonists'
           }
         ]
       });
