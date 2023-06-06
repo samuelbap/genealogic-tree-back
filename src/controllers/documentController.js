@@ -7,8 +7,6 @@ import { fullDocumentController } from './fullDocumentController.js';
 
 export const documentController = {
   getAllDocuments: async (req, res) => {
-    // console.log(res);
-
     try {
       const documents = await document.findAll({
         include: [
